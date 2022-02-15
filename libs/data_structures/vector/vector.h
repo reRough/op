@@ -30,4 +30,20 @@ void shrinkToFit(vector *v);
 // освобождает память, выделенную вектору.
 void deleteVector(vector *v);
 
+// возвращает true, если вектор пустой, иначе возвращает false
+bool isEmpty(const vector *v);
+
+// возвращает true, если вектор заполнен, иначе возвращает false
+bool isFull(const vector *v);
+
+// возвращает i-ый элемент вектора v.
+int getVectorValue(const vector *v, size_t i);
+
+// добавляет элемент x в конец вектора v.
+// увеличивает количество выделенной памяти вдвое, если вектор заполнен
+void pushBack(vector *v, int x);
+
+// удаляет последний элемент из вектора.
+void popBack(vector *v);
+
 #endif //LABS_LIBS_VECTOR_H
