@@ -24,9 +24,15 @@ void sortRowsByMaxElement(matrix m);
 
 matrix mulMatrices(matrix m1, matrix m2);
 
-//Если данная квадратная матрица 𝐴 симметрична,
-//то заменить 𝐴 ее квадратом
+//Заменяет 𝐴 ее квадратом если данная квадратная матрица 𝐴 симметрична
 void getSquareOfMatrixIfSymmetric(matrix *m);
+
+long long getSum(int *a, int n);
+
+bool isUnique(long long *a, int n);
+
+//Транспонирует матрицу если среди сумм элементов строк матрицы нет равных
+void transposeIfMatrixHasNotEqualSumOfRows(matrix m);
 
 
 
