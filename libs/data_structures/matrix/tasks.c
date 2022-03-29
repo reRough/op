@@ -38,7 +38,7 @@ int getMin(int *a, int size) {
     return min;
 }
 
-void sortRowsByMaxElement(matrix m) {
+void sortRowsByMaxElement(matrix *m) {
     insertionSortRowsMatrixByRowCriteria(m, getMax);
 }
 
@@ -139,3 +139,42 @@ int getMinInArea(matrix m) {
     return min;
 }
 
+void universalSwap(void *a, void *b, size_t size) {
+    char *a1 = a;
+    char *b1 = b;
+    for (int i = 0; i < size; i++) {
+        char t = *a1;
+        *a1 = *b1;
+        *b1 = t;
+
+        a1++;
+        b1++;
+    }
+}
+
+float getDistance(int *a, int size) {
+    long long distanceSquared = 0;
+    for (int i = 0; i < size; ++i)
+        distanceSquared += a[i] * a[i];
+
+    return sqrt(distanceSquared);
+}
+
+void insertionSortRowsMatrixByRowCriteriaF(matrix m, float (*criteria)(int *, int)) {
+    float *rows = (float *) malloc(sizeof(float) * m.nRows);
+    for (int rIndex = 0; rIndex < m.nRows; ++rIndex)
+        rows[rIndex] = criteria(m.values[rIndex], m.nCols);
+
+    for (int rIndex = 1; rIndex < m.nRows; ++rIndex) {
+        int cIndex = rIndex;
+        while (cIndex > 0 && rows[cIndex] < rows[cIndex - 1]) {
+            swapRows(m, cIndex, cIndex - 1);
+            universalSwap(&rows[cIndex], &rows[cIndex - 1], sizeof(int));
+            cIndex--;
+        }
+    }
+}
+
+void sortByDistances(matrix m) {
+    insertionSortRowsMatrixByRowCriteriaF(m, getDistance);
+}

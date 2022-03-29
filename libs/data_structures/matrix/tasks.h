@@ -20,7 +20,7 @@ int getMin(int *a, int size);
 
 //Располагает столбцы матрицы по неубыванию
 //минимальных элементов столбцов
-void sortRowsByMaxElement(matrix m);
+void sortRowsByMaxElement(matrix *m);
 
 matrix mulMatrices(matrix m1, matrix m2);
 
@@ -43,6 +43,13 @@ long long findSumOfMaxesOfPseudoDiagonal(matrix m);
 
 //Находит минимальный элемент матрицы в выделенной области
 int getMinInArea(matrix m);
+
+float getDistance(int *a, int size);
+
+void insertionSortRowsMatrixByRowCriteriaF(matrix m, float (*criteria)(int *, int));
+
+//Располаагет точки по неубыванию их расстояний до начала координат
+void sortByDistances(matrix m);
 
 
 #endif //LABS_LIBS_TASKS_H
