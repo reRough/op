@@ -34,6 +34,8 @@ bool isUnique(long long *a, int n);
 //Транспонирует матрицу если среди сумм элементов строк матрицы нет равных
 void transposeIfMatrixHasNotEqualSumOfRows(matrix m);
 
-
+//Возвращает 1 если матрицы взаимно обратны,
+//0 - если не взаимо обратны
+bool isMutuallyInverseMatrices(matrix m1, matrix m2);
 
 #endif //LABS_LIBS_TASKS_H
