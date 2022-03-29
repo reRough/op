@@ -17,7 +17,7 @@ typedef struct matrix{
     int nCols; //количество столбцов
 } matrix;
 
-typedef struct position{
+typedef struct position{ //будем считать, что структура только появилась, я немного поспешил
     int rowIndex;
     int colIndex;
 } position;
@@ -85,6 +85,19 @@ void transposeSquareMatrix(matrix *m);
 
 //транспонирует матрицу m
 void transposeMatrix(matrix *m);
+
+//возвращает позицию минимального элемента матрицы m
+position getMinValuePos(matrix m);
+
+//возвращает позицию максимального элемента матрицы m
+position getMaxValuePos(matrix m);
+
+//возвращает матрицу размера nRows на nCols, построенную из элементов массива a
+matrix createMatrixFromArray(const int *values, int nRows, int nCols);
+
+//возвращает указатель на нулевую матрицу массива из nMatrices матриц, размещенных
+//в динамической памяти, построенных из элементов массива a
+matrix *createArrayOfMatricesFromArray(const int *values, int nMatrices, int nRows, int nCols);
 
 
 #endif //LABS_LIBS_MATRIX_H

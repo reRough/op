@@ -174,3 +174,56 @@ void transposeMatrix(matrix *m) {
                 m->values[j][i] = t;
             }
 }
+
+position getMinValuePos(matrix m) {
+    int min = m.values[0][0];
+    position pos = {0, 0};
+
+    for (int i = 0; i < m.nRows; ++i)
+        for (int j = 0; j < m.nCols;  ++j) {
+            if (m.values[i][j] < min) {
+                min = m.values[i][j];
+                pos = (position) {i, j};
+            }
+        }
+
+    return pos;
+}
+
+position getMaxValuePos(const matrix m) {
+    int max = m.values[0][0];
+    position pos = {0, 0};
+
+    for (int i = 0; i < m.nRows; ++i)
+        for (int j = 0; j < m.nCols; ++j) {
+            if (m.values[i][j] > max) {
+                max = m.values[i][j];
+                pos = (position) {i, j};
+            }
+        }
+
+    return pos;
+}
+
+matrix createMatrixFromArray(const int *values, int nRows, int nCols) {
+    matrix m = getMemMatrix(nRows, nCols);
+
+    int k = 0;
+    for (int i = 0; i < nRows; ++i)
+        for (int j = 0; j < nCols; ++j)
+            m.values[i][j] = values[k++];
+
+    return m;
+}
+
+matrix *createArrayOfMatricesFromArray(const int *values, int nMatrices, int nRows, int nCols) {
+    matrix *m = getMemArrayOfMatrices(nMatrices, nRows, nCols);
+
+    int l = 0;
+    for (int i = 0; i < nMatrices; ++i)
+        for (int j = 0; j < nRows; ++j)
+            for (int k = 0; k < nCols; ++k)
+                m[i].values[j][k] = values[l++];
+
+    return m;
+}
