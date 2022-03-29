@@ -3,9 +3,6 @@
 //
 
 #include "matrix.h"
-#include <malloc.h>
-#include <stdio.h>
-#include <assert.h>
 
 void swapArray(int *m, int a, int b) {
     int t = m[a];
@@ -34,8 +31,7 @@ matrix *getMemArrayOfMatrices(int nMatrices, int nRows, int nCols) {
 }
 
 void freeMemMatrix(matrix *m) {
-    int rows = m->nRows;
-    for (int i = 0; i < rows; i++)
+    for (int i = 0; i < m->nRows; i++)
         free(m->values[i]);
     free(m->values);
 }
@@ -47,10 +43,8 @@ void freeMemMatrices(matrix *ms, int nMatrices){
 }
 
 void inputMatrix(matrix *m){
-    int rows = m->nRows;
-    int cols = m->nCols;
-    for(int i = 0; i < rows; i++)
-        for(int j = 0; j < cols; j++)
+    for(int i = 0; i < m->nRows; i++)
+        for(int j = 0; j < m->nCols; j++)
             scanf("%d", &m->values[i][j]);
 }
 
@@ -60,10 +54,8 @@ void inputMatrices(matrix *ms, int nMatrices){
 }
 
 void outputMatrix(matrix m){
-    int rows = m.nRows;
-    int cols = m.nCols;
-    for(int i = 0; i < rows; i++){
-        for(int j = 0; j < cols; j++)
+    for(int i = 0; i < m.nRows; i++){
+        for(int j = 0; j < m.nCols; j++)
             printf("%d", m.values[i][j]);
         printf("\n");
     }
@@ -125,5 +117,39 @@ void insertionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int *, int))
             }
         }
     }
+}
+
+bool isSquareMatrix(matrix *m) {
+    if (m->nRows == m->nCols)
+        return true;
+    return false;
+}
+
+bool sameSizeMatrices(matrix *m1, matrix *m2) {
+    if (m1->nRows == m2->nRows && m1->nCols == m2->nCols)
+        return true;
+    return false;
+}
+
+bool isEMatrix(matrix *m){
+    if (!isSquareMatrix(m))
+        return false;
+
+    for (int i = 0; i < m->nRows; ++i)
+        for (int j = 0; j < m->nCols; ++j)
+            if (i == j && m->values[i][j] != 1 || i != j && m->values[i][j] != 0)
+                return false;
+    return true;
+}
+
+bool isSymmetricMatrix(matrix *m) {
+    if (!isSquareMatrix(m))
+        return false;
+
+    for (int i = 0; i < m->nRows; ++i)
+        for (int j = 0; j < m->nCols; ++j)
+            if (m->values[i][j] != m->values[j][i])
+                return false;
+    return true;
 }
 

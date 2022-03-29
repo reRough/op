@@ -1,12 +1,10 @@
+#include <malloc.h>
 #include <stdio.h>
-#include <stdint.h>
-#include "libs/data_structures/vector/vector.h"
-#include "libs/data_structures/vector/Tests/VectorTests.h"
+#include <assert.h>
+#include <stdbool.h>
+#include "libs/data_structures/matrix/matrix.c"
 
 int main() {
-    vector v = createVector(SIZE_MAX) ;
-
-    test_vector();
 
     return 0;
 }

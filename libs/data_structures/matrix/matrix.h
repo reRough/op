@@ -5,6 +5,11 @@
 #ifndef LABS_LIBS_MATRIX_H
 #define LABS_LIBS_MATRIX_H
 
+#include <malloc.h>
+#include <stdio.h>
+#include <assert.h>
+#include <stdbool.h>
+
 //обьявление структур
 typedef struct matrix{
     int **values; //элементы матрицы
@@ -54,5 +59,25 @@ void insertionSortRowsMatrixByRowCriteria(matrix m, int (*criteria)(int *, int))
 //сортировку выбором столбцов матрицы m по неубыванию значения функции
 //criteria применяемой для столбцов
 void insertionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int *, int));
+
+//возвращает значение ’истина’, если матрица m является квадратной,
+//ложь – в противном случае
+bool isSquareMatrix(matrix *m);
+
+//возвращает значение ’истина’, если матрицы m1 и m2 равны,
+//ложь – в противном случае
+bool sameSizeMatrices(matrix *m1, matrix *m2);
+
+//возвращает значение ’истина’, если матрица m является единичной,
+//ложь – в противном случае
+bool isEMatrix(matrix *m);
+
+//возвращает значение ’истина’, если матрица m является единичной,
+//ложь – в противном случае
+bool isEMatrix(matrix *m);
+
+//возвращает значение ’истина’, если матрица m является симметричной,
+//ложь – в противном случае
+bool isSymmetricMatrix(matrix *m);
 
 #endif //LABS_LIBS_MATRIX_H
