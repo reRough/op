@@ -38,4 +38,7 @@ void transposeIfMatrixHasNotEqualSumOfRows(matrix m);
 //0 - если не взаимо обратны
 bool isMutuallyInverseMatrices(matrix m1, matrix m2);
 
+//Находит сумму максимальных элементов всех псевдодиагоналей данной матрицы
+long long findSumOfMaxesOfPseudoDiagonal(matrix m);
+
 #endif //LABS_LIBS_TASKS_H

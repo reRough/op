@@ -4,11 +4,11 @@
 
 #include "tasks.h"
 
-int max2(int x, int y) {
+int max(int x, int y) {
     return x > y ? x : y;
 }
 
-int min2(int x, int y) {
+int min(int x, int y) {
     return x < y ? x : y;
 }
 
@@ -95,4 +95,27 @@ bool isMutuallyInverseMatrices(matrix m1, matrix m2) {
     matrix m = mulMatrices(m1, m2);
 
     return isEMatrix(m);
+}
+
+long long findSumOfMaxesOfPseudoDiagonal(matrix m) {
+    long long sum = 0;
+
+    for (int i = 1; i < m.nRows; ++i) {
+        int j = 0;
+        int k = i;
+        int max = m.values[k][j];
+        while (k < m.nRows && j < m.nCols)
+            max = max(max, m.values[k++][j++]);
+        sum += max;
+    }
+    for (int j = 1; j < m.nCols; ++j) {
+        int i = 0;
+        int k = j;
+        int max = m.values[i][k];
+        while (i < m.nRows && k < m.nCols)
+            max = max(max, m.values[i++][k++]);
+        sum += max;
+    }
+
+    return sum;
 }
