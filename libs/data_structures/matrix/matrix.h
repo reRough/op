@@ -47,4 +47,12 @@ void swapRows(matrix m, int i1, int i2);
 //обмен колонок с порядковыми номерами j1 и j2 в матрицы m
 void swapColumns(matrix m, int j1, int j2);
 
+//сортировка выбором столбцов матрицы m по неубыванию значения функции
+//criteria применяемой для столбцов
+void insertionSortRowsMatrixByRowCriteria(matrix m, int (*criteria)(int *, int));
+
+//сортировку выбором столбцов матрицы m по неубыванию значения функции
+//criteria применяемой для столбцов
+void insertionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int *, int));
+
 #endif //LABS_LIBS_MATRIX_H

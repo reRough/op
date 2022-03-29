@@ -7,6 +7,18 @@
 #include <stdio.h>
 #include <assert.h>
 
+void swapArray(int *m, int a, int b) {
+    int t = m[a];
+    m[a] = m[b];
+    m[b] = t;
+}
+
+void createArray(int *a, matrix m, int rows, const int cols) {
+    for (int i = 0; i < rows; i++) {
+        a[i] = m.values[i][cols];
+    }
+}
+
 matrix getMemMatrix(int nRows, int nCols) {
     int **values = (int **) malloc(sizeof(int *) * nRows);
     for (int i = 0; i < nRows; i++)
@@ -83,3 +95,35 @@ void swapColumns(matrix m, int j1, int j2){
         m.values[i][j2] = t;
     }
 }
+void insertionSortRowsMatrixByRowCriteria(matrix m, int (*criteria)(int *, int)) {
+    int a[m.nRows];
+    for (int i = 0; i < m.nRows; i++) {
+        a[i] = criteria(m.values[i], m.nCols);
+        for (int j = 0; j < i; j++) {
+            if (a[j] > a[i]) {
+                for (int k = i; k > j; k--) {
+                    swapArray(a, k - 1, k);
+                    swapRows(m, k - 1, k);
+                }
+            }
+        }
+    }
+}
+
+void insertionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int *, int)) {
+    int a[m.nCols];
+    int b[m.nRows];
+    for (int i = 0; i < m.nCols; i++) {
+        createArray(b, m, m.nRows, i);
+        a[i] = criteria(b, m.nRows);
+        for (int j = 0; j < i; j++) {
+            if (a[j] > a[i]) {
+                for (int k = i; k > j; k--) {
+                    swapArray(a, k - 1, k);
+                    swapColumns(m, k - 1, k);
+                }
+            }
+        }
+    }
+}
+
