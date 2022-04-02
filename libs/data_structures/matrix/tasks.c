@@ -15,7 +15,7 @@ int min(int x, int y) {
 int getMax(int *a, int size) {
     int max = a[0];
     for (int i = 1; i < size; ++i)
-        max = max2(max, a[i]);
+        max = max(max, a[i]);
 
     return max;
 }
@@ -33,13 +33,13 @@ void sortColsByMinElement(matrix m) {
 int getMin(int *a, int size) {
     int min = a[0];
     for (int i = 1; i < size; ++i)
-        min = min2(min, a[i]);
+        min = min(min, a[i]);
 
     return min;
 }
 
 void sortRowsByMaxElement(matrix *m) {
-    insertionSortRowsMatrixByRowCriteria(m, getMax);
+    insertionSortRowsMatrixByRowCriteria(*m, getMax);
 }
 
 matrix mulMatrices(matrix m1, matrix m2) {
@@ -55,8 +55,10 @@ matrix mulMatrices(matrix m1, matrix m2) {
 }
 
 void getSquareOfMatrixIfSymmetric(matrix *m) {
-    if (isSquareMatrix(*m) && isSymmetricMatrix(*m)) {
-        *m = mulMatrices(*m, *m);
+    if (isSquareMatrix(m) && isSymmetricMatrix(m)) {
+        matrix matrixSquare = mulMatrices(*m, *m);
+        freeMemMatrix(m);
+        *m = matrixSquare;
     }
 }
 
@@ -128,7 +130,7 @@ int getMinInArea(matrix m) {
 
     while (pos.rowIndex >= 0) {
         for (int k = leftBoarder; k <= rightBoarder; ++k)
-            min = min2(min, m.values[pos.rowIndex][k]);
+            min = min(min, m.values[pos.rowIndex][k]);
         if (leftBoarder > 0)
             leftBoarder--;
         if (rightBoarder + 1 < m.nCols)
@@ -178,3 +180,4 @@ void insertionSortRowsMatrixByRowCriteriaF(matrix m, float (*criteria)(int *, in
 void sortByDistances(matrix m) {
     insertionSortRowsMatrixByRowCriteriaF(m, getDistance);
 }
+
