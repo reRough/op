@@ -18,3 +18,39 @@ char *find(char *begin, char *end, int ch) {
 
     return begin;
 }
+
+char* findNonSpace(char *begin){
+    while(*begin != '\0' && isspace(*begin))
+        begin++;
+
+    return begin;
+}
+
+char* findSpace(char *begin){
+    while(*begin != '\0' && !isspace(*begin))
+        begin++;
+
+    return begin;
+}
+
+char* findNonSpaceReserve(char *rbegin, const char *rend){
+    while(rbegin != rend && isspace(*rbegin))
+        rbegin--;
+
+    return rbegin;
+}
+
+char* findSpaceReverse(char *rbegin, const char *rend){
+    while(rbegin != rend && !isspace(*rbegin))
+        rbegin--;
+
+    return rbegin;
+}
+
+int strcmp(const char *lhs, const char *rhs){
+    while(*lhs == *rhs && *lhs != '\0')
+        lhs++, rhs++;
+
+    return *lhs - *rhs;
+}
+
