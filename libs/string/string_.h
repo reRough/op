@@ -38,9 +38,11 @@ char* copy(const char *beginSource, const char *endSource, char *beginDestinatio
 
 //записывает по адресу beginDestination элементы из фрагмента памяти
 //начиная с beginSource заканчивая endSource, удовлетворяющие функции-предикату f
-char* copyIf(char *beginSource, const char *endSource, char *beginDestination, int(*f)(int));
+char* copyIf(const char *beginSource, const char *endSource, char *beginDestination, int(*f)(int));
 
 //записывает по адресу beginDestination элементы из фрагмента памяти
 //начиная с rbeginSource заканчивая rendSource, удовлетворяющие функции-предикату f
-char *copyIfReverce(char *rbeginSource, const char *rendSource, char *beginDestination, int (*f)(int));
+char *copyIfReverce(const char *rbeginSource, const char *rendSource, char *beginDestination, int (*f)(int));
+
+
 #endif //LABS_LIBS_STRING__H
