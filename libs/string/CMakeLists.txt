@@ -1,1 +1,1 @@
-add_library(string string_.c)
+add_library(string string_.c tasks/tasks_.c tasks/tasks_.h tasks/tests/tests_.c tasks/tests/tests_.h)
