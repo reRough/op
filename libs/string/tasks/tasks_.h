@@ -7,6 +7,11 @@
 
 #include "../string_.h"
 
+typedef struct WordDescriptor {
+    char *begin; // позиция начала слова
+    char *end; // плзиуия первого символа, после последнего символа слова
+} WordDescriptor;
+
 char *getEndOfString(char *s);
 
 //удаляет из строки все пробельные символы
@@ -18,4 +23,10 @@ void removeAdjacentEqualLetters(char *s);
 
 //Сокращает количество пробелов между словами данного предложения до одного
 void removeExtraSpaces(char *s);
+
+//Возвращает значение 0, если слово не было считано, в противном
+//случае будет возвращено значение 1
+int getWord ( char *beginSearch , WordDescriptor *word );
+
+
 #endif //LABS_LIBS_TASKS__H
