@@ -4,7 +4,7 @@
 
 #include "VectorTests.h"
 #include <assert.h>
-#include "vector.h"
+#include "../vector.h"
 
 void test_pushBack_emptyVector() {
     vector v = createVector(0);
@@ -32,7 +32,7 @@ void test_pushBack_fullVector() {
 
 void test_popBack_notEmptyVector(){
     vector v = createVector(0);
-    pushBack(v.size == 1);
+    popBack(v.size == 1);
 
     assert(v.size == 1);
 

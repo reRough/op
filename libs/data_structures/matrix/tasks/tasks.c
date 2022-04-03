@@ -4,18 +4,18 @@
 
 #include "tasks.h"
 
-int max(int x, int y) {
+int max2(int x, int y) {
     return x > y ? x : y;
 }
 
-int min(int x, int y) {
+int min2(int x, int y) {
     return x < y ? x : y;
 }
 
 int getMax(int *a, int size) {
     int max = a[0];
     for (int i = 1; i < size; ++i)
-        max = max(max, a[i]);
+        max = max2(max, a[i]);
 
     return max;
 }
@@ -33,7 +33,7 @@ void sortColsByMinElement(matrix m) {
 int getMin(int *a, int size) {
     int min = a[0];
     for (int i = 1; i < size; ++i)
-        min = min(min, a[i]);
+        min = min2(min, a[i]);
 
     return min;
 }
@@ -44,7 +44,7 @@ void sortRowsByMaxElement(matrix *m) {
 
 matrix mulMatrices(matrix m1, matrix m2) {
     assert(m1.nCols == m2.nRows);
-    matrix m3 = createMatrix(m1.nRows, m2.nCols);
+    matrix m3 = getMemMatrix(m1.nRows, m2.nCols);
     for (int i = 0; i < m3.nRows; i++)
         for (int j = 0; j < m3.nCols; j++) {
             m3.values[i][j] = 0;
@@ -86,7 +86,7 @@ void transposeIfMatrixHasNotEqualSumOfRows(matrix m) {
         b[i] = getSum(m.values[i], m.nCols);
     }
     if (isUnique(b, m.nRows)) {
-        transposeSquareMatrix(m);
+        transposeSquareMatrix(&m);
     }
 }
 
@@ -96,7 +96,7 @@ bool isMutuallyInverseMatrices(matrix m1, matrix m2) {
 
     matrix m = mulMatrices(m1, m2);
 
-    return isEMatrix(m);
+    return isEMatrix(&m);
 }
 
 long long findSumOfMaxesOfPseudoDiagonal(matrix m) {
@@ -107,7 +107,7 @@ long long findSumOfMaxesOfPseudoDiagonal(matrix m) {
         int k = i;
         int max = m.values[k][j];
         while (k < m.nRows && j < m.nCols)
-            max = max(max, m.values[k++][j++]);
+            max = max2(max, m.values[k++][j++]);
         sum += max;
     }
     for (int j = 1; j < m.nCols; ++j) {
@@ -115,7 +115,7 @@ long long findSumOfMaxesOfPseudoDiagonal(matrix m) {
         int k = j;
         int max = m.values[i][k];
         while (i < m.nRows && k < m.nCols)
-            max = max(max, m.values[i++][k++]);
+            max = max2(max, m.values[i++][k++]);
         sum += max;
     }
 
@@ -130,7 +130,7 @@ int getMinInArea(matrix m) {
 
     while (pos.rowIndex >= 0) {
         for (int k = leftBoarder; k <= rightBoarder; ++k)
-            min = min(min, m.values[pos.rowIndex][k]);
+            min = min2(min, m.values[pos.rowIndex][k]);
         if (leftBoarder > 0)
             leftBoarder--;
         if (rightBoarder + 1 < m.nCols)
@@ -155,7 +155,7 @@ void universalSwap(void *a, void *b, size_t size) {
 }
 
 float getDistance(int *a, int size) {
-    long long distanceSquared = 0;
+    double distanceSquared = 0;
     for (int i = 0; i < size; ++i)
         distanceSquared += a[i] * a[i];
 

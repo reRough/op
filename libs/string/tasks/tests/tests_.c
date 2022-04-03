@@ -146,7 +146,7 @@ int isNotDigit(int x) {
 }
 
 void test_strlen_common() {
-    char str[] = "qwert";
+    char str[] = "qwer";
 
     int assumedResult = 4;
     int result = strlen(str);
@@ -167,7 +167,7 @@ void test_find_notFound() {
     char str[] = "qwertyuio12345";
 
     char *assumedResult = str + 14;
-    char *result = find(str, str + 14, 'w');
+    char *result = find(str, str + 14, 'p');
 
     assert(assumedResult == result);
 }
@@ -279,11 +279,11 @@ void test_copy_commonCase() {
 }
 
 void test_copyIf_onlyDigits() {
-    char str[] = "qwer tyu123 45";
-    char endStr[] = "67890";
-    char *resBegin = malloc(sizeof(char) * 15);
+    char str[] = "qw6r tyu789 x";
+    char endStr[] = "6789";
+    char *resBegin = malloc(sizeof(char) * 14);
 
-    char *resEnd = copyIf(str, str + 14, resBegin, isDigit);
+    char *resEnd = copyIf(str, str + 13, resBegin, isDigit);
     *resEnd = '\0';
 
     assert(strcmp(endStr, resBegin) == 0);
@@ -291,9 +291,9 @@ void test_copyIf_onlyDigits() {
     free(resBegin);
 }
 
-void test_copyIf_allExceptDigits() {
-    char str[] = "qwer tyu123 4";
-    char endStr[] = "as df56 7";
+void test_copyIf_exceptDigits() {
+    char str[] = "d34f 8xwj0q x";
+    char endStr[] = "df xwjq x";
     char *resBegin = malloc(sizeof(char) * 14);
 
     char *resEnd = copyIf(str, str + 13, resBegin, isNotDigit);
@@ -306,7 +306,7 @@ void test_copyIf_allExceptDigits() {
 
 void test_copyIfReverse_onlyDigits() {
     char str[] = "qw1 2 3r4tyu";
-    char endStr[] = "5678";
+    char endStr[] = "4321";
     char *resBegin = malloc(sizeof(char) * 13);
 
     char *resEnd = copyIfReverse(str + 12, str - 1, resBegin, isDigit);
@@ -317,9 +317,9 @@ void test_copyIfReverse_onlyDigits() {
     free(resBegin);
 }
 
-void test_copyIfReverse_allExceptDigits() {
+void test_copyIfReverse_exceptDigits() {
     char str[] = "qw1 2 3e4rty";
-    char endStr[] = "qwer  u";
+    char endStr[] = "ytre  w";
     char *resBegin = malloc(sizeof(char) * 12);
 
     char *resEnd = copyIfReverse(str + 11, str, resBegin, isNotDigit);
@@ -357,7 +357,7 @@ void test_string_() {
     test_strcmp_firstGreater();
     test_copy_commonCase();
     test_copyIf_onlyDigits();
-    test_copyIf_allExceptDigits();
+    test_copyIf_exceptDigits();
     test_copyIfReverse_onlyDigits();
-    test_copyIfReverse_allExceptDigits();
+    test_copyIfReverse_exceptDigits();
 }

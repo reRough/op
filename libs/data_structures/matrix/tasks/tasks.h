@@ -6,8 +6,8 @@
 #define LABS_LIBS_TASKS_H
 
 #include "../matrix.h"
+#include <math.h>
 
-int getMax(const int *const a, const int size);
 
 //Меняет местами строки,
 //в которых находятся максимальный и минимальный элементы

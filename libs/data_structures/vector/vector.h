@@ -41,7 +41,7 @@ int getVectorValue(const vector *v, size_t i);
 
 // добавляет элемент x в конец вектора v.
 // увеличивает количество выделенной памяти вдвое, если вектор заполнен
-void pushBack(vector *v, int x);
+void pushBack(vector *v,int x);
 
 // удаляет последний элемент из вектора.
 void popBack(vector *v);
