@@ -51,7 +51,7 @@ void replaceWord(char *source, char *w1, char *w2);
 //Проверяет последовательность слов на правильный порядок
 int arrangeInOrder(char *s);
 
-//Сравнивает 2 слова на равенство
+//Сравнивает два слова на равенство
 int areWordsEqual(WordDescriptor w1, WordDescriptor w2);
 
 //Получает позиции начала и конца каждого слова строки
@@ -59,4 +59,13 @@ void getBagOfWords(BagOfWords *bag, char *s);
 
 //Проверяет является ли слово палиндромом
 bool isPalindrome(WordDescriptor w);
+
+int getWord2(char *beginSearch, WordDescriptor *word);
+
+//Определить количество слов-палиндромов в строке
+int countPalindromes(char *s);
+
+//Перемешивает две строки так, чтобы в получившейся чередовались слова первой и второй строки
+void mixStrings(char *s1, char *s2, char *s3);
+
 #endif //LABS_LIBS_TASKS__H
