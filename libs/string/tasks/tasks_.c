@@ -235,4 +235,19 @@ void mixStrings(char *s1, char *s2, char *s3) {
     *copyS3 = '\0';
 }
 
+void reverseWordInString(char *s) {
+    char *endOfBuff = copy(s, s + strlen(s), _stringBuffer);
+    *endOfBuff = '\0';
 
+    WordDescriptor word;
+    char *start = s;
+
+    while (getWordReverse(endOfBuff - 1, _stringBuffer - 1, &word)) {
+        start = copy(word.begin, word.end, start);
+        *start++ = ' ';
+        endOfBuff = word.begin;
+    }
+
+    if (s != start)
+        *--start = '\0';
+}

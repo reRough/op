@@ -68,4 +68,7 @@ int countPalindromes(char *s);
 //Перемешивает две строки так, чтобы в получившейся чередовались слова первой и второй строки
 void mixStrings(char *s1, char *s2, char *s3);
 
+//Преобразовывает строку, изменив порядок следования слов в строке на обратный
+void reverseWordInString(char *s);
+
 #endif //LABS_LIBS_TASKS__H
