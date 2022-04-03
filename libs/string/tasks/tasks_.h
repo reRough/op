@@ -9,8 +9,16 @@
 
 typedef struct WordDescriptor {
     char *begin; // позиция начала слова
-    char *end; // плзиуия первого символа, после последнего символа слова
+    char *end; // позиция первого символа, после последнего символа слова
 } WordDescriptor;
+
+typedef struct BagOfWords{
+    WordDescriptor words[MAX_N_WORDS_IN_STRING];
+    size_t size;
+} BagOfWords;
+
+BagOfWords _bag;
+BagOfWords _bag2;
 
 char *getEndOfString(char *s);
 
@@ -40,4 +48,15 @@ int wordcmp(WordDescriptor w1, WordDescriptor w2);
 //Заменяет все вхождения слова 𝑤1 на слово 𝑤2
 void replaceWord(char *source, char *w1, char *w2);
 
+//Проверяет последовательность слов на правильный порядок
+int arrangeInOrder(char *s);
+
+//Сравнивает 2 слова на равенство
+int areWordsEqual(WordDescriptor w1, WordDescriptor w2);
+
+//Получает позиции начала и конца каждого слова строки
+void getBagOfWords(BagOfWords *bag, char *s);
+
+//Проверяет является ли слово палиндромом
+bool isPalindrome(WordDescriptor w);
 #endif //LABS_LIBS_TASKS__H

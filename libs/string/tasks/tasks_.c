@@ -112,3 +112,88 @@ void replaceWord(char *source, char *w1, char *w2) {
         *--recPtr = '\0';
 }
 
+int arrangeInOrder(char *s) {
+    char *begin = s;
+    char *beginW1 = _stringBuffer;
+    char *beginW2;
+
+    WordDescriptor w1;
+    WordDescriptor w2;
+
+    if (!getWord(begin, &w1))
+        return 1;
+    char *endWord1 = copy(w1.begin, w1.end, beginW1);
+    *endWord1 = '\0';
+
+    while (getWord(begin, &w2)) {
+        beginW2 = endWord1 + 1;
+        char *endWord2 = copy(w2.begin, w2.end, beginW2);
+        *endWord2 = '\0';
+        if (strcmp(beginW1, beginW2) > 0)
+            return 0;
+        w1.end = w2.end;
+        w1.begin = w2.begin;
+        endWord1 = copy(w2.begin, w2.end, beginW1);
+        begin = w2.end;
+    }
+
+    return 1;
+}
+
+int areWordsEqual(WordDescriptor w1, WordDescriptor w2){
+    char *begin2 = w2.begin;
+    for(char *begin1 = w1.begin; *begin1 <= w1.end; *begin1++)
+        if (*begin1 == *begin2)
+            *begin2++;
+        else
+            return 0;
+
+    return 1;
+}
+
+void getBagOfWords(BagOfWords *bag, char *s) {
+    WordDescriptor word;
+    WordDescriptor *bagStart = bag->words;
+    char *strStart = s;
+
+    bag->size = 0;
+    while (getWord(strStart, &word)) {
+        *bagStart++ = word;
+        bag->size++;
+        strStart = word.end;
+    }
+}
+
+bool isPalindrome(WordDescriptor w) {
+    char *left = w.begin;
+    char *right = w.end - 1;
+    while (right - left > 0) {
+        if (*(left) != *(right))
+            return false;
+        right--;
+        left++;
+    }
+    return true;
+}
+
+int getWord2(char *beginSearch, WordDescriptor *word) {
+    word->begin = findNonSpace(beginSearch);
+
+    if (*word->begin == '\0')
+        return 0;
+    word->end = findSpace(word->begin);
+
+    return 1;
+}
+
+int countPalindromes(char *s) {
+    char *begin = s;
+    WordDescriptor word;
+    int number = 0;
+    while (getWord2(begin, &word)) {
+        if (isPalindrome(word))
+            number++;
+        begin = word.end + 1;
+    }
+    return number;
+}
