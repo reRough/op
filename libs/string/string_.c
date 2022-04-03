@@ -33,7 +33,7 @@ char* findSpace(char *begin){
     return begin;
 }
 
-char* findNonSpaceReserve(char *rbegin, const char *rend){
+char* findNonSpaceReverse(char *rbegin, const char *rend){
     while(rbegin != rend && isspace(*rbegin))
         rbegin--;
 
@@ -87,3 +87,4 @@ char *copyIfReverce(const char *rbeginSource, const char *rendSource, char *begi
     }
     return beginDestination;
 }
+

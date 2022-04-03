@@ -7,6 +7,14 @@
 
 #include <stdlib.h>
 #include <ctype.h>
+#include <stdbool.h>
+#include <string.h>
+
+#define MAX_STRING_SIZE 100
+#define MAX_N_WORDS_IN_STRING 100
+#define MAX_WORD_SIZE 20
+
+char _stringBuffer[MAX_STRING_SIZE + 1];
 
 //возвращает количество символов в строке (не считая ноль-символ)
 size_t strlen(const char *begin);
@@ -22,7 +30,7 @@ char* findNonSpace(char *begin);
 char* findSpace(char *begin);
 
 //возвращает указатель на первый справа символ, отличный от пробельных
-char* findNonSpaceReserve(char *rbegin, const char *rend);
+char* findNonSpaceReverse(char *rbegin, const char *rend);
 
 //возвращает указатель на первый пробельный символ справа
 char* findSpaceReverse(char *rbegin, const char *rend);
@@ -43,6 +51,7 @@ char* copyIf(const char *beginSource, const char *endSource, char *beginDestinat
 //записывает по адресу beginDestination элементы из фрагмента памяти
 //начиная с rbeginSource заканчивая rendSource, удовлетворяющие функции-предикату f
 char *copyIfReverce(const char *rbeginSource, const char *rendSource, char *beginDestination, int (*f)(int));
+
 
 
 #endif //LABS_LIBS_STRING__H

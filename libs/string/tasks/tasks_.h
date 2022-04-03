@@ -28,5 +28,16 @@ void removeExtraSpaces(char *s);
 //случае будет возвращено значение 1
 int getWord ( char *beginSearch , WordDescriptor *word );
 
+//Преобразовывает строку таким образом, чтобы цифры каждого слова были перенесены в начало слова
+//и изменяет порядок следования цифр на обратный
+void digitToStart(WordDescriptor word);
+
+//Считывает слова с конца строки
+bool getWordReverse(char *rbegin, char *rend, WordDescriptor *word);
+
+int wordcmp(WordDescriptor w1, WordDescriptor w2);
+
+//Заменяет все вхождения слова 𝑤1 на слово 𝑤2
+void replaceWord(char *source, char *w1, char *w2);
 
 #endif //LABS_LIBS_TASKS__H
