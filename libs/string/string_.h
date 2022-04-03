@@ -10,6 +10,7 @@
 #include <stdbool.h>
 #include <string.h>
 
+
 #define MAX_STRING_SIZE 100
 #define MAX_N_WORDS_IN_STRING 100
 #define MAX_WORD_SIZE 20
@@ -38,7 +39,7 @@ char* findSpaceReverse(char *rbegin, const char *rend);
 //Функция возвращает отрицательное значение, если lhs располагается до rhs
 //в лексикографическом порядке (как в словаре), значение 0, если lhs и rhs
 //равны, иначе – положительное значение.
-int strmp(const char *lhs, const char *rhs);
+int strcmp(const char *lhs, const char *rhs);
 
 //записывает по адресу beginDestination
 //фрагмент памяти, начиная с адреса beginSource до endSource
@@ -50,7 +51,7 @@ char* copyIf(const char *beginSource, const char *endSource, char *beginDestinat
 
 //записывает по адресу beginDestination элементы из фрагмента памяти
 //начиная с rbeginSource заканчивая rendSource, удовлетворяющие функции-предикату f
-char *copyIfReverce(const char *rbeginSource, const char *rendSource, char *beginDestination, int (*f)(int));
+char *copyIfReverse(const char *rbeginSource, const char *rendSource, char *beginDestination, int (*f)(int));
 
 
 

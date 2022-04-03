@@ -5,13 +5,13 @@
 #ifndef LABS_LIBS_TASKS_H
 #define LABS_LIBS_TASKS_H
 
-#include "matrix.h"
+#include "../matrix.h"
 
 int getMax(const int *const a, const int size);
 
 //Меняет местами строки,
 //в которых находятся максимальный и минимальный элементы
-void swapMinAndMaxRows(matrix m)
+void swapMinAndMaxRows(matrix m);
 
 //Располагает строки матрицы по неубыванию наибольших элементов строк
 void sortColsByMinElement(matrix m);

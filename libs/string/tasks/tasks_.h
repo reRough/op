@@ -17,6 +17,13 @@ typedef struct BagOfWords{
     size_t size;
 } BagOfWords;
 
+typedef enum WordBeforeFirstWordWithAReturnCode {
+    FIRST_WORD_WITH_A,
+    NOT_FOUND_A_WORD_WITH_A,
+    WORD_FOUND,
+    EMPTY_STRING
+} WordBeforeFirstWordWithAReturnCode;
+
 BagOfWords _bag;
 BagOfWords _bag2;
 
@@ -70,5 +77,14 @@ void mixStrings(char *s1, char *s2, char *s3);
 
 //Преобразовывает строку, изменив порядок следования слов в строке на обратный
 void reverseWordInString(char *s);
+
+//Находит слово данной строки, предшествующее первому из слов,
+//содержащих букву "а"
+WordBeforeFirstWordWithAReturnCode getWordBeforeFirstWordWithA(char *s, WordDescriptor *word);
+
+//Выводит слово данной строки, предшествующее первому из слов,
+//содержащих букву "а"
+void printWordBeforeFirstWordWithA(char *s);
+
 
 #endif //LABS_LIBS_TASKS__H
