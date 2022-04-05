@@ -41,7 +41,7 @@ void removeExtraSpaces(char *s);
 
 //Возвращает значение 0, если слово не было считано, в противном
 //случае будет возвращено значение 1
-int getWord ( char *beginSearch , WordDescriptor *word );
+bool getWord ( char *beginSearch , WordDescriptor *word );
 
 //Преобразовывает строку таким образом, чтобы цифры каждого слова были перенесены в начало слова
 //и изменяет порядок следования цифр на обратный
@@ -59,10 +59,12 @@ void replaceWord(char *source, char *w1, char *w2);
 int arrangeInOrder(char *s);
 
 //Сравнивает два слова на равенство
-int areWordsEqual(WordDescriptor w1, WordDescriptor w2);
+bool areWordsEqual(WordDescriptor w1, WordDescriptor w2);
 
 //Получает позиции начала и конца каждого слова строки
 void getBagOfWords(BagOfWords *bag, char *s);
+
+int findWordInBag(BagOfWords *bag, WordDescriptor word);
 
 //Проверяет является ли слово палиндромом
 bool isPalindrome(WordDescriptor w);
@@ -86,5 +88,13 @@ WordBeforeFirstWordWithAReturnCode getWordBeforeFirstWordWithA(char *s, WordDesc
 //содержащих букву "а"
 void printWordBeforeFirstWordWithA(char *s);
 
+//Переводит WordDescriptor в char*
+void wordToString(WordDescriptor word, char *str);
+
+//Определяет последнее из слов первой строки, которое есть во второй строке
+int lastWordInFirstStringInSecondString(char *str1, char *str2, WordDescriptor *word);
+
+//Определяет, есть ли в данной строке одинаковые слова
+bool hasEqualWords(char *s);
 
 #endif //LABS_LIBS_TASKS__H

@@ -47,13 +47,13 @@ void removeExtraSpaces(char *s) {
     *(++writePos) = '\0';
 }
 
-int getWord(char *beginSearch, WordDescriptor *word) {
+bool getWord(char *beginSearch, WordDescriptor *word) {
     word->begin = findNonSpace(beginSearch);
     if (*word->begin == '\0')
-        return 0;
+        return false;
 
     word->end = findSpace(word->begin);
-    return 1;
+    return true;
 }
 
 void digitToStart(WordDescriptor word){
@@ -141,15 +141,15 @@ int arrangeInOrder(char *s) {
     return 1;
 }
 
-int areWordsEqual(WordDescriptor w1, WordDescriptor w2){
+bool areWordsEqual(WordDescriptor w1, WordDescriptor w2){
     char *begin2 = w2.begin;
     for(char *begin1 = w1.begin; *begin1 <= w1.end; *begin1++)
         if (*begin1 == *begin2)
             *begin2++;
         else
-            return 0;
+            return false;
 
-    return 1;
+    return true;
 }
 
 void getBagOfWords(BagOfWords *bag, char *s) {
@@ -163,6 +163,20 @@ void getBagOfWords(BagOfWords *bag, char *s) {
         bag->size++;
         strStart = word.end;
     }
+}
+
+int findWordInBag(BagOfWords *bag, WordDescriptor word) {
+    const WordDescriptor *currentWord = bag->words;
+    const WordDescriptor *lastWord = bag->words + bag->size;
+
+    while (currentWord < lastWord) {
+        if (wordcmp(*currentWord, word))
+            return currentWord - bag->words;
+
+        currentWord++;
+    }
+
+    return -1;
 }
 
 bool isPalindrome(WordDescriptor w) {
@@ -290,3 +304,40 @@ void printWordBeforeFirstWordWithA(char *s) {
     }
 }
 
+void wordToString(WordDescriptor word, char *str) {
+    str = copy(word.begin, word.end, str);
+    *str = '\0';
+}
+
+int lastWordInFirstStringInSecondString(char *str1, char *str2, WordDescriptor *word) {
+    if (!(*str1))
+        return 0;
+
+    getBagOfWords(&_bag, str2);
+
+    WordDescriptor currentWord;
+    char *end = getEndOfString(str1);
+    while (getWordReverse(end - 1, str1 - 1, &currentWord)) {
+        if (findWordInBag(&_bag, currentWord) != -1) {
+            *word = currentWord;
+            return 1;
+        }
+
+        end = currentWord.begin;
+    }
+
+    return 0;
+}
+
+bool hasEqualWords(char *s) {
+    getBagOfWords(&_bag, s);
+    if (_bag.size <= 1)
+        return false;
+
+    WordDescriptor *endOfBag = _bag.words + _bag.size;
+    for (WordDescriptor *i = _bag.words; i < endOfBag; ++i)
+        for (WordDescriptor *j = i + 1; j < endOfBag; ++j)
+            if (wordcmp(*i, *j))
+                return true;
+    return false;
+}

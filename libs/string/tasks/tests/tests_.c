@@ -330,6 +330,180 @@ void test_copyIfReverse_exceptDigits() {
     free(resBegin);
 }
 
+void test_countPalindromes_common() {
+    char str[] = "aboba,level,aodoa,fgfgfgf,nohh";
+
+    int assumedResult = 4;
+
+    assert(countPalindromes(str) == assumedResult);
+}
+
+void test_countPalindromes_extraSpace() {
+    char str[] = "    aboba,level,aodoa,fgfgfgf,nohh    ";
+
+    int assumedResult = 4;
+
+    assert(countPalindromes(str) == assumedResult);
+}
+
+void test_countPalindromes_empty() {
+    char str[] = "";
+
+    int assumedResult = 0;
+
+    assert(countPalindromes(str) == assumedResult);
+}
+
+void test_countPalindromes_none() {
+    char str[] = "sboba,sevel,sodoa,sgfgfgf,nohh";
+
+    int assumedResult = 0;
+
+    assert(countPalindromes(str) == assumedResult);
+}
+void test_mixStrings_common() {
+    char str1[] = "qq ee rr";
+    char str2[] = "tt yy";
+    char str[MAX_STRING_SIZE];
+
+    mixStrings(str1, str2, str);
+
+    char assumedStr[] = "qq tt ee yy rr";
+
+    ASSERT_STRING(assumedStr, str);
+}
+
+void test_mixStrings_empty() {
+    char str1[] = "";
+    char str2[] = "";
+    char str[MAX_STRING_SIZE] = "qweqweqwerq";
+
+    mixStrings(str1, str2, str);
+
+    char assumedStr[] = "";
+
+    ASSERT_STRING(assumedStr, str);
+}
+
+void test_mixStrings_empty1() {
+    char str1[] = "";
+    char str2[] = "qqqq wwewe rtytrurt";
+    char str[MAX_STRING_SIZE] = "";
+
+    mixStrings(str1, str2, str);
+
+    char assumedStr[] = "qqqq wwewe rtytrurt";
+
+    ASSERT_STRING(assumedStr, str);
+}
+
+void test_mixStrings_empty2() {
+    char str1[] = "qqqq wwewe rtytrurt";
+    char str2[] = "";
+    char str[MAX_STRING_SIZE] = "";
+
+    mixStrings(str1, str2, str);
+
+    char assumedStr[] = "qqqq wwewe rtytrurt";
+
+    ASSERT_STRING(assumedStr, str);
+}
+
+void test_reverseWordInString_common() {
+    char str[MAX_STRING_SIZE] = "qwe rty uiop";
+
+    reverseWordInString(str);
+
+    char assumedStr[] = "poiu ytr ewq";
+
+    ASSERT_STRING(assumedStr, str);
+}
+
+void test_reverseWordInString_singleSymbols() {
+    char str[MAX_STRING_SIZE] = "q w e";
+
+    reverseWordInString(str);
+
+    char assumedStr[] = "e w q";
+
+    ASSERT_STRING(assumedStr, str);
+}
+
+void test_reverseWordInString_empty() {
+    char str[MAX_STRING_SIZE] = "";
+
+    reverseWordInString(str);
+
+    char assumedStr[] = "";
+
+    ASSERT_STRING(assumedStr, str);
+}
+
+void test_lastWordInFirstStringInSecondString_common() {
+    char str1[] = "qwe rtyu iopa";
+    char str2[] = "sdfg rtyu hjkl zxc";
+
+    WordDescriptor word;
+    lastWordInFirstStringInSecondString(str1, str2, &word);
+
+    char result[MAX_STRING_SIZE];
+    wordToString(word, result);
+
+    char assumedStr[] = "rtyu";
+
+    ASSERT_STRING(assumedStr, result);
+}
+
+void test_lastWordInFirstStringInSecondString_empty() {
+    char str1[] = "";
+    char str2[] = "qwer tyui op asd";
+
+    WordDescriptor word;
+    bool status = lastWordInFirstStringInSecondString(str1, str2, &word);
+
+    assert(status == false);
+}
+
+void test_lastWordInFirstStringInSecondString_noWord() {
+    char str1[] = "qwer tyuio op";
+    char str2[] = "asdf ghj kl";
+
+    WordDescriptor word;
+    bool status = lastWordInFirstStringInSecondString(str1, str2, &word);
+
+    assert(status == false);
+}
+
+void test_hasEqualWords_common() {
+    char str[] = "qwer tyui op qwer asd";
+
+    assert(hasEqualWords(str) == true);
+}
+
+void test_hasEqualWords_empty() {
+    char str[] = "";
+
+    assert(hasEqualWords(str) == false);
+}
+
+void test_hasEqualWords_oneWord() {
+    char str[] = "qwer";
+
+    assert(hasEqualWords(str) == false);
+}
+
+void test_hasEqualWords_notFound() {
+    char str[] = "qwer tyui op asdf ghjk";
+
+    assert(hasEqualWords(str) == false);
+}
+
+void test_hasEqualWords_onlySpace() {
+    char str[] = "                   ";
+
+    assert(hasEqualWords(str) == false);
+}
+
 void test_string_() {
     test_removeNonLetters_common();
     test_removeNonLetters_empty();
@@ -360,4 +534,23 @@ void test_string_() {
     test_copyIf_exceptDigits();
     test_copyIfReverse_onlyDigits();
     test_copyIfReverse_exceptDigits();
+    test_countPalindromes_common();
+    test_countPalindromes_extraSpace();
+    test_countPalindromes_empty();
+    test_countPalindromes_none();
+    test_mixStrings_common();
+    test_mixStrings_empty();
+    test_mixStrings_empty1();
+    test_mixStrings_empty2();
+    test_reverseWordInString_common();
+    test_reverseWordInString_singleSymbols();
+    test_reverseWordInString_empty();
+    test_lastWordInFirstStringInSecondString_common();
+    test_lastWordInFirstStringInSecondString_empty();
+    test_lastWordInFirstStringInSecondString_noWord();
+    test_hasEqualWords_common();
+    test_hasEqualWords_empty();
+    test_hasEqualWords_oneWord();
+    test_hasEqualWords_notFound();
+    test_hasEqualWords_onlySpace();
 }
