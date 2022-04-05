@@ -331,17 +331,17 @@ void test_copyIfReverse_exceptDigits() {
 }
 
 void test_countPalindromes_common() {
-    char str[] = "aboba,level,aodoa,fgfgfgf,nohh";
+    char str[] = "chel ti aha hfh aboba";
 
-    int assumedResult = 4;
+    int assumedResult = 3;
 
     assert(countPalindromes(str) == assumedResult);
 }
 
 void test_countPalindromes_extraSpace() {
-    char str[] = "    aboba,level,aodoa,fgfgfgf,nohh    ";
+    char str[] = "    chel ti aha hfh aboba    ";
 
-    int assumedResult = 4;
+    int assumedResult = 3;
 
     assert(countPalindromes(str) == assumedResult);
 }
@@ -355,7 +355,7 @@ void test_countPalindromes_empty() {
 }
 
 void test_countPalindromes_none() {
-    char str[] = "sboba,sevel,sodoa,sgfgfgf,nohh";
+    char str[] = "chel ti aab hhj abobb";
 
     int assumedResult = 0;
 
@@ -376,7 +376,7 @@ void test_mixStrings_common() {
 void test_mixStrings_empty() {
     char str1[] = "";
     char str2[] = "";
-    char str[MAX_STRING_SIZE] = "qweqweqwerq";
+    char str[MAX_STRING_SIZE] = "";
 
     mixStrings(str1, str2, str);
 
