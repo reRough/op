@@ -277,6 +277,7 @@ long long getShellSortNComp(int *array, int size) {
     return nComp;
 }
 
+
 long long getDigitalSortNComp(int *a, size_t size) {
     long long nComp = 0;
     int *buffer = (int *) calloc(size, sizeof(int));
