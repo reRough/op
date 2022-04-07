@@ -122,6 +122,17 @@ void hairbrushSort(int *a, const size_t size) {
     }
 }
 
+void shellSort(int *array, int size) {
+    for (int s = size / 2; s > 0; s /= 2) {
+        for (int i = s; i < size; ++i) {
+            for (int j = i - s; j >= 0 && array[j] > array[j + s]; j -= s) {
+                int temp = array[j];
+                array[j] = array[j + s];
+                array[j + s] = temp;
+            }
+        }
+    }
+}
 
 void timeExperiment() {
     SortFunc sorts[] = {
@@ -129,6 +140,7 @@ void timeExperiment() {
             {selectionSrt, "selectionSort"},
             {insertionSort, "insertionSort"},
             {hairbrushSort, "hairbrushSort"},
+            {shellSort, "shellSort"},
             };
 
     const unsigned FUNCS_N = ARRAY_SIZE(sorts);
