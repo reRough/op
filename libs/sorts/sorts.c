@@ -107,13 +107,29 @@ void insertionSort(int *a, const size_t size) {
     }
 }
 
+void hairbrushSort(int *a, const size_t size) {
+    size_t step = size;
+    int swapp = 1;
+    while (step > 1 || swapp) {
+        if (step > 1)
+            step /= REDUCTION_FACTOR;
+        swapp = 0;
+        for (size_t i = 0, j = i + step; j < size; ++i, ++j)
+            if (a[i] > a[j]) {
+                swap(&a[i], &a[j]);
+                swapp = 1;
+            }
+    }
+}
+
+
 void timeExperiment() {
     SortFunc sorts[] = {
             {bubbleSort, "bubbleSort"},
             {selectionSrt, "selectionSort"},
-            {insertionSort, "insertionSort"}
-
-    };
+            {insertionSort, "insertionSort"},
+            {hairbrushSort, "hairbrushSort"},
+            };
 
     const unsigned FUNCS_N = ARRAY_SIZE(sorts);
 

@@ -19,6 +19,7 @@
 }
 
 #define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
+#define REDUCTION_FACTOR 1.2473309
 
 typedef struct SortFunc {
     void(*sort)(int *a, size_t n); // указатель на функцию
@@ -34,6 +35,6 @@ typedef struct GeneratingFunc {
                                        // используемое при выводе
 } GeneratingFunc;
 
-
+void timeExperiment();
 
 #endif //LABS_LIBS_SORTS_H

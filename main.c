@@ -1,8 +1,7 @@
-#include "libs/string/tasks/tests/tests_.h"
+#include "libs/sorts/sorts.h"
 
 int main() {
-
-    test_string_();
+    timeExperiment();
 
     return 0;
 }
