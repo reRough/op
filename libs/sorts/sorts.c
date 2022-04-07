@@ -99,12 +99,10 @@ void selectionSrt(int *a, int size) {
 }
 
 void insertionSort(int *a, const size_t size) {
-    for (int i = 0; i < size; ++i) {
-        for (int j = i; j > 0; --j) {
+    for (int i = 0; i < size; ++i)
+        for (int j = i; j > 0; --j)
             if (a[j] < a[j - 1])
                 swap(&a[j], &a[j - 1]);
-        }
-    }
 }
 
 void hairbrushSort(int *a, const size_t size) {
@@ -123,15 +121,10 @@ void hairbrushSort(int *a, const size_t size) {
 }
 
 void shellSort(int *array, int size) {
-    for (int s = size / 2; s > 0; s /= 2) {
-        for (int i = s; i < size; ++i) {
-            for (int j = i - s; j >= 0 && array[j] > array[j + s]; j -= s) {
-                int temp = array[j];
-                array[j] = array[j + s];
-                array[j + s] = temp;
-            }
-        }
-    }
+    for (int s = size / 2; s > 0; s /= 2)
+        for (int i = s; i < size; ++i)
+            for (int j = i - s; j >= 0 && array[j] > array[j + s]; j -= s)
+                swap(&array[j], &array[j + s]);
 }
 
 void getPrefixSums(int *a, size_t size) {
@@ -219,7 +212,174 @@ void timeExperiment() {
 
 }
 
+long long getBubbleSortNComp(int *a, size_t size) {
+    long long nComps = 0;
+    for (size_t i = 0; ++nComps && i < size; i++)
+        for (size_t j = i; ++nComps && i < size; j++)
+            if (++nComps && a[i] > a[j])
+                swap(&a[i], &a[j]);
 
+    return nComps;
+}
 
+long long getSelectionSortNComp(int *a, size_t size) {
+    long long nComps = 0;
+    for (int i = 0; ++nComps && i < size; i++) {
+        int min = a[i];
+        int minIndex = i;
+        for (int j = i + 1; ++nComps && j < size; j++)
+            if (++nComps && a[j] < min) {
+                min = a[j];
+                minIndex = j;
+            }
+        if (++nComps && i != minIndex)
+            swap(&a[i], &a[minIndex]);
+    }
 
+    return nComps;
+}
+
+long long getInsertionSortNComp(int *a, const size_t size) {
+    long long nComp = 0;
+    for (int i = 0; ++nComp && i < size; ++i)
+        for (int j = i;++nComp && j > 0; --j)
+            if (++nComp && a[j] < a[j - 1])
+                swap(&a[j], &a[j - 1]);
+
+    return nComp;
+}
+
+long long getHairbrushNComp(int *a, size_t size) {
+    long long nComp = 0;
+    size_t step = size;
+    int swapped = 1;
+    while (step > 1 && ++nComp || swapped) {
+        if (step > 1 && ++nComp)
+            step /= REDUCTION_FACTOR;
+        swapped = 0;
+        for (size_t i = 0, j = i + step; j < size && ++nComp; ++i, ++j)
+            if (a[i] > a[j] && ++nComp) {
+                swap(&a[i], &a[j]);
+                swapped = 1;
+            }
+    }
+    return nComp;
+}
+
+long long getShellSortNComp(int *array, int size) {
+    long long nComp = 0;
+    for (int s = size / 2;++nComp && s > 0; s /= 2)
+        for (int i = s;++nComp && i < size; ++i)
+            for (int j = i - s; j >= 0 && array[j] > array[j + s]; j -= s){
+                nComp += 2;
+                swap(&array[j], &array[j + s]);
+            }
+    return nComp;
+}
+
+long long getDigitalSortNComp(int *a, size_t size) {
+    long long nComp = 0;
+    int *buffer = (int *) calloc(size, sizeof(int));
+    int max = 0b11111111;
+    int step = 8;
+
+    for (int byte = 0; byte < sizeof(int) && ++nComp; byte++) {
+        int values[UCHAR_MAX + 1] = {0};
+
+        for (size_t i = 0; i < size && ++nComp; i++) {
+            int curByte;
+            if (byte + 1 == sizeof(int))
+                curByte = ((a[i] >> (byte * step)) + CHAR_MAX + 1) & max;
+            else
+                curByte = (a[i] >> (byte * step)) & max;
+
+            values[curByte]++;
+        }
+
+        getPrefixSums(values, UCHAR_MAX + 1);
+
+        for (size_t i = 0; i < size && ++nComp; i++) {
+            int curByte;
+            if (byte + 1 == sizeof(int))
+                curByte = ((a[i] >> (byte * step)) + CHAR_MAX + 1) & max;
+            else
+                curByte = (a[i] >> (byte * step)) & max;
+
+            buffer[values[curByte]++] = a[i];
+        }
+        memcpy(a, buffer, sizeof(int) * size);
+    }
+    free(buffer);
+
+    return nComp;
+}
+
+void checkNComps(long long (*sortFunc )(int *, size_t),
+                 void (*generateFunc )(int *, size_t),
+                 size_t size, char *experimentName) {
+    static size_t runCounter = 1;
+
+    static int innerBuffer[100000];
+    generateFunc(innerBuffer, size);
+    printf("Run #%zu| ", runCounter++);
+    printf("Name : %s\n", experimentName);
+
+    size_t nComps = sortFunc(innerBuffer, size);
+
+    printf("Status: ");
+    if (isOrdered(innerBuffer, size)) {
+        printf("OK! nComps : %lld\n", nComps);
+
+        char filename[256];
+        sprintf(filename, "./data/%s.csv", experimentName);
+
+        FILE *f = fopen(filename, "a");
+        if (f == NULL) {
+            printf("FileOpenError %s", filename);
+            exit(1);
+        }
+        fprintf(f, "%zu; %lld\n", size, nComps);
+        fclose(f);
+    } else {
+        printf("Wrong!\n");
+
+        outputArray_(innerBuffer, size);
+        exit(1);
+    }
+}
+
+void compsExperiment() {
+    SortFunc sorts[] = {
+            {getBubbleSortNComp,    "bubbleSort"},
+            {getSelectionSortNComp, "selectionSort"},
+            {getInsertionSortNComp, "insertionSort"},
+            {getHairbrushNComp,      "hairbrushSort"},
+            {getShellSortNComp,     "shellSort"},
+            {getDigitalSortNComp,     "digitalSort"},
+    };
+    const unsigned FUNCS_N = ARRAY_SIZE(sorts);
+
+    GeneratingFunc generatingFuncs[] = {
+            {generateRandomArray,      "random"},
+            {generateOrderedArray,     "ordered"},
+            {generateOrderedBackwardsArray, "orderedBackwards"}
+    };
+    const unsigned CASES_N = ARRAY_SIZE(generatingFuncs);
+
+    for (size_t size = 10000; size <= 100000; size += 10000) {
+        printf("------------------------------\n");
+        printf(" Size : %d\n", size);
+        for (int i = 0; i < FUNCS_N; i++) {
+            for (int j = 0; j < CASES_N; j++) {
+                static char filename[128];
+                sprintf(filename, "%s_%s_comps",
+                        sorts[i].name, generatingFuncs[j].name);
+                checkNComps(sorts[i].sort,
+                            generatingFuncs[j].generate,
+                            size, filename);
+            }
+        }
+        printf("\n");
+    }
+}
 

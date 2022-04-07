@@ -1,7 +1,8 @@
 #include "libs/sorts/sorts.h"
 
 int main() {
-    timeExperiment();
+    //timeExperiment();
+    compsExperiment();
 
     return 0;
 }

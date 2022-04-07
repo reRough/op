@@ -37,5 +37,6 @@ typedef struct GeneratingFunc {
 } GeneratingFunc;
 
 void timeExperiment();
+void compsExperiment();
 
 #endif //LABS_LIBS_SORTS_H
