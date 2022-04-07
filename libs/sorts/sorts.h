@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <time.h>
+#include <memory.h>
 
 #define TIME_TEST(testCode, time) { \
     clock_t start_time = clock(); \
