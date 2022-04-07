@@ -98,11 +98,20 @@ void selectionSrt(int *a, int size) {
     }
 }
 
+void insertionSort(int *a, const size_t size) {
+    for (int i = 0; i < size; ++i) {
+        for (int j = i; j > 0; --j) {
+            if (a[j] < a[j - 1])
+                swap(&a[j], &a[j - 1]);
+        }
+    }
+}
 
 void timeExperiment() {
     SortFunc sorts[] = {
             {bubbleSort, "bubbleSort"},
             {selectionSrt, "selectionSort"},
+            {insertionSort, "insertionSort"}
 
     };
 
