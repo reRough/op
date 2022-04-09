@@ -36,6 +36,13 @@ typedef struct GeneratingFunc {
                                        // используемое при выводе
 } GeneratingFunc;
 
+typedef struct SortFunc2 {
+    long long (*sort)(int *a, size_t n);
+
+    char name[64];
+
+} SortFunc2;
+
 void timeExperiment();
 void compsExperiment();
 

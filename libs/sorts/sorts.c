@@ -39,7 +39,7 @@ void checkTime(void (*sortFunc)(int *, size_t),
                size_t size, char *experimentName) {
     static size_t runCounter = 1;
 
-    int* innerBuffer = malloc(sizeof(int) * 100000);
+    int* innerBuffer = malloc(sizeof(int) * 1000000);
     generateFunc(innerBuffer, size);
     printf(" Run #%zu| ", runCounter++);
     printf(" Name: %s\n", experimentName);
@@ -173,9 +173,9 @@ void digitalSort(int *a, size_t size) {
 
 void timeExperiment() {
     SortFunc sorts[] = {
-            {bubbleSort, "bubbleSort"},
-            {selectionSrt, "selectionSort"},
-            {insertionSort, "insertionSort"},
+            //{bubbleSort, "bubbleSort"},
+            //{selectionSrt, "selectionSort"},
+            //{insertionSort, "insertionSort"},
             {hairbrushSort, "hairbrushSort"},
             {shellSort, "shellSort"},
             {digitalSort, "digitalSort"},
@@ -191,7 +191,7 @@ void timeExperiment() {
 
     const unsigned CASES_N = ARRAY_SIZE(generating);
 
-    for (size_t size = 10000; size <= 100000; size += 10000) {
+    for (size_t size = 100000; size <= 1000000; size += 100000) {
         printf("----------------------------\n");
         printf("Size: %d\n", size);
 
@@ -214,10 +214,10 @@ void timeExperiment() {
 
 long long getBubbleSortNComp(int *a, size_t size) {
     long long nComps = 0;
-    for (size_t i = 0; ++nComps && i < size; i++)
-        for (size_t j = i; ++nComps && i < size; j++)
-            if (++nComps && a[i] > a[j])
-                swap(&a[i], &a[j]);
+    for (size_t i = 0;++nComps && i < size - 1; i++)
+        for (size_t j = size - 1;++nComps && j > i; j--)
+            if (++nComps && a[j - 1] > a[j])
+                swap(&a[j - 1], &a[j]);
 
     return nComps;
 }
@@ -266,7 +266,7 @@ long long getHairbrushNComp(int *a, size_t size) {
     return nComp;
 }
 
-long long getShellSortNComp(int *array, int size) {
+long long getShellSortNComp(int *array, size_t size) {
     long long nComp = 0;
     for (int s = size / 2;++nComp && s > 0; s /= 2)
         for (int i = s;++nComp && i < size; ++i)
@@ -350,7 +350,7 @@ void checkNComps(long long (*sortFunc )(int *, size_t),
 }
 
 void compsExperiment() {
-    SortFunc sorts[] = {
+    SortFunc2 sorts[] = {
             {getBubbleSortNComp,    "bubbleSort"},
             {getSelectionSortNComp, "selectionSort"},
             {getInsertionSortNComp, "insertionSort"},
